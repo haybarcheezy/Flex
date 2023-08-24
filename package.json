@@ -1,0 +1,21 @@
+{
+  "name": "flex",
+  "version": "1.0.0",
+  "description": "KrakenFlex Project",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "Hayden Barnett",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.4.0",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "jest": "^29.6.3"
+  }
+}
