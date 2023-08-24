@@ -4,6 +4,9 @@ const BASE_URL = "https://api.krakenflex.systems/interview-tests-mock-api/v1";
 const API_KEY = process.env.API_KEY;
 const MAX_RETRIES = 3;
 
+axios.defaults.headers.common["x-api-key"] = API_KEY;
+axios.defaults.timeout = 20000;
+
 // return all outages from the API. This function should retry up to 3 times if the API returns a 500 error.
 const getAllOutages = async () => {
   let retries = 0;
@@ -13,6 +16,7 @@ const getAllOutages = async () => {
         headers: {
           "x-api-key": API_KEY,
         },
+        timeout: 20000,
       });
       return response.data;
     } catch (error) {

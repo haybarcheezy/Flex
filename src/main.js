@@ -7,30 +7,37 @@ const {
 
 const main = async () => {
   try {
+    console.log("Fetching all outages...");
     const outages = await getAllOutages();
+    console.log("Total outages fetched:", outages.length);
+
+    const recentOutages = filterOutagesByDate(outages);
+    console.log("Outages after date filter:", recentOutages.length);
+
+    console.log("Fetching site info for norwich-pear-tree...");
     const siteInfo = await getSiteInfo("norwich-pear-tree");
+    console.log("Site name:", siteInfo.name);
 
-    // Filtering by date
-    const recentOutages = filterOutagesByDate(
-      outages,
-      "2022-01-01T00:00:00.000Z"
-    );
+    const validOutages = filterOutagesByDeviceId(recentOutages, siteInfo);
+    console.log("Outages after device ID filter:", validOutages.length);
 
-    // Extracting device IDs from the siteInfo
-    const deviceIds = siteInfo.devices.map((device) => device.id);
+    const enhancedOutages = attachDeviceNameToOutages(validOutages, siteInfo);
 
-    // Filtering by device ID
-    const relevantOutages = filterOutagesByDeviceId(recentOutages, deviceIds);
+    // Log the enhanced outages for user clarity
+    console.log("\nOutages to be posted:");
+    console.log(JSON.stringify(enhancedOutages, null, 2));
 
-    // Attaching display names
-    const transformedData = attachDeviceNameToOutages(
-      relevantOutages,
-      siteInfo
-    );
+    if (enhancedOutages.length === 0) {
+      console.log(
+        "No recent outages found for site 'norwich-pear-tree'. No data will be posted."
+      );
+      return; // Exit early if there are no outages to post.
+    }
 
-    await postSiteOutages("norwich-pear-tree", transformedData);
+    await postSiteOutages("norwich-pear-tree", enhancedOutages);
+    console.log("Outages posted successfully for site 'norwich-pear-tree'!");
   } catch (error) {
-    console.error(error);
+    console.error("An error occurred:", error.message);
   }
 };
 

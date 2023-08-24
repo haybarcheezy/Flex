@@ -4,55 +4,32 @@
 
 This program is built to interface with the KrakenFlex API, fetch outages, filter them based on certain criteria, and post the refined data back to the API.
 
+## The Breakdown
+
+1. **Get All Outages**: The first part was straightforward. We hit the `GET /outages` endpoint, grabbed all the outages, and stored them. Nothing too fancy.
+2. **Site Info for Norwich Pear Tree**: This was a bit more specific. We needed data for a specific site (`norwich-pear-tree`). So, I crafted a request to `GET /site-info/{siteId}` to fetch the details.
+3. **Filtering Outages**: Now, this was fun. We had a bunch of outages, but not all were useful. I filtered out those that started before `2022-01-01T00:00:00.000Z`. Plus, if an outage's device ID wasn't in our site's device list, it got the boot.
+4. **Enhancing the Outages**: For the outages that made the cut, we attached a display name. Basically, giving each outage a bit more context.
+5. **Posting the Enhanced Outages**: The final step! We sent our enhanced outages to the `POST /site-outages/{siteId}` endpoint.
+
 ## Dependencies
 
 This project requires:
 
 - [Node.js](https://nodejs.org/) (v14 or newer recommended)
 - [npm](https://www.npmjs.com/) (usually comes bundled with Node.js)
+- [Axios](https://www.npmjs.com/package/axios) (for HTTP requests)
+- [Jest](https://www.npmjs.com/package/jest) (for testing)
 
-## Installation
+## Running the Code
 
-1. Clone this repository:
+To get this code in action, here's how you can run it:
 
-   ```bash
-   gh repo clone haybarcheezy/Flex
-
-   ```
-
-2. Navigate to the project directory:
-
-   ```bash
-   cd flex
-
-   ```
-
-3. Install the required dependencies:
-
-   ```bash
-   npm install
-
-   ```
-
-## Running the Program
-
-To execute the main program:
-
-```bash
-node src/main.js
-
-```
-
-This will fetch the required data from the API, process it, and then post the final data back to the API.
-
-## Running Tests
-
-Tests have been written using the Jest testing framework. To execute the tests:
-
-```bash
-npm test
-
-```
+1. First, make sure you've got Node.js installed. If not, [grab it here](https://nodejs.org/).
+2. Next, navigate to the project's root directory in your terminal.
+3. Install the necessary packages with `npm install`.
+4. Run the main program with `node src/main.js`.
+5. If you want to run the tests, just do `npm test`.
 
 ## About the Solution
 
@@ -61,10 +38,6 @@ npm test
 - Data processing utilities are found in `src/utils/index.js`.
 - `src/main.js` serves as the main entry point and combines API interactions with data processing to achieve the desired outcome.
 
-### API Resilience
+## Resilience Against Errors (Bonus)
 
-The program incorporates a retry mechanism for the `GET /outages` endpoint. If a 500 status code is received, the program will retry the request up to 3 times before giving up.
-
-## Feedback
-
-For feedback, questions, or suggestions, please contact Hayden@haydenbarnett.dev
+We're dealing with APIs here, and sometimes they act up. If the API throws a 500 error, we've got that covered. We simply retry the request a few times before finally giving up.
