@@ -20,6 +20,7 @@ This project requires:
 - [npm](https://www.npmjs.com/) (usually comes bundled with Node.js)
 - [Axios](https://www.npmjs.com/package/axios) (for HTTP requests)
 - [Jest](https://www.npmjs.com/package/jest) (for testing)
+- [dotenv](https://www.npmjs.com/package/dotenv) (for environment variables)
 
 ## Running the Code
 
@@ -28,8 +29,9 @@ To get this code in action, here's how you can run it:
 1. First, make sure you've got Node.js installed. If not, [grab it here](https://nodejs.org/).
 2. Next, navigate to the project's root directory in your terminal.
 3. Install the necessary packages with `npm install`.
-4. Run the main program with `node src/main.js`.
-5. If you want to run the tests, just do `npm test`.
+4. Set API key in a .env file or run `export API_KEY=your_actual_api_key`
+5. Run the main program with `node src/main.js`.
+6. If you want to run the tests, just do `npm test`.
 
 ## About the Solution
 
