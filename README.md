@@ -43,3 +43,7 @@ To get this code in action, here's how you can run it:
 ## Resilience Against Errors (Bonus)
 
 We're dealing with APIs here, and sometimes they act up. If the API throws a 500 error, we've got that covered. We simply retry the request a few times before finally giving up.
+
+## 🐙 Bonus 🐍 💪
+
+It wasn't a requirement, but I also took an alternative attempt to the KrakenFlex Back End Test using Python instead of JavaScript. (The Python WIP attempt can be found [here](https://github.com/haybarcheezy/PyKraken))
